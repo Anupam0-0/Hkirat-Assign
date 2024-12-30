@@ -2,12 +2,17 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import React from 'react'
-import InputContext from './FormContext.jsx'
+import App from './App'
+
+import { BrowserRouter as Router} from 'react-router'
 
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <InputContext />
+    <Router>
+      <App />
+    </Router>
+
   </StrictMode>,
 )

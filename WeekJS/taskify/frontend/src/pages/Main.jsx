@@ -9,14 +9,29 @@ const Main = () => {
 
     const fetchData = async () => {
         try {
-            const res = await fetch('http://localhost:3000/task/');
-            if (!res.ok) throw new Error('N/w res aint good');
-            const data = await res.json();
-            setData(data);
-            // console.log(data);
-            setLoading(false);
-
-
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found! Please login first.');
+            }
+            const res = await fetch('http://localhost:3000/task/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Add the token here
+                },
+            });
+            // console.log('Token:', token);
+            // console.log('Authorization Header:', `Bearer ${token}`);
+            if (res.ok) {
+                const data = await res.json();
+                // console.log('Tasks:', data);
+                setData(data);
+                // console.log(data);
+                setLoading(false);
+            } else {
+                console.error('Failed to fetch tasks:', res);
+                setLoading(false);
+            }
         } catch (error) {
             setError(error.message);
             setLoading(false);
@@ -25,10 +40,15 @@ const Main = () => {
 
     const addNewTask = async () => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found! Please login first.');
+            }
             const res = await fetch('http://localhost:3000/task/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Add the token here
                 },
                 body: JSON.stringify({ title: newtask }),
             });
@@ -42,10 +62,15 @@ const Main = () => {
 
     const handleComplete = async (id) => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found! Please login first.');
+            }
             const res = await fetch(`http://localhost:3000/task/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`, // Add the token here
                 },
                 body: JSON.stringify({ isCompleted: true }),
             });
@@ -58,8 +83,15 @@ const Main = () => {
 
     const handleDelete = async (id) => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found! Please login first.');
+            }
             const res = await fetch(`http://localhost:3000/task/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${token}`, // Add the token here
+                },
             });
             if (!res.ok) throw new Error('Failed to delete task');
             fetchData();
@@ -74,7 +106,7 @@ const Main = () => {
 
 
     return (
-        <div className='py-40 px-20 w-full flex justify-center items-center'>
+        <div className='py-10 px-20 w-full flex justify-center items-center'>
 
             <div className='w-[80vw] p-8 border flex flex-col'>
                 <h1 className='text-4xl text-center text-blue-600 font-bold'>TODO LIST :</h1>
