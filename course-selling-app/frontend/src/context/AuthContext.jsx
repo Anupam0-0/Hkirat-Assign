@@ -14,16 +14,6 @@ export const AuthProvider = ({ children }) => {
 
         if (token) {
             api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-            // Optional: Fetch user info from /me endpoint (if backend supports it)
-            api.get("/users/me")
-                .then((response) => {
-                    setUser(response.data.user);
-                })
-                .catch(() => {
-                    localStorage.removeItem("token"); // Clear invalid token
-                    setUser(null);
-                });
         }
     }, []);
 

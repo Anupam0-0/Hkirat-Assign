@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext, useAuth } from '../context/AuthContext';
+import api from '../utils/api';
 
 const App = () => {
     const [email, setEmail] = useState('');
@@ -13,7 +14,7 @@ const App = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/api/user/login', {
+            const response = await api.post('/user/login', {
                 email,
                 password,
             });
@@ -28,8 +29,8 @@ const App = () => {
             navigate('/home');
 
         } catch (error) {
-            // console.error('Failed to login:', error);
             setMessage('Failed to login');
+            console.log(error)
         }
     };
 
