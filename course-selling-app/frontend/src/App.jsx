@@ -8,6 +8,7 @@ import Courses from "./pages/Courses";
 import Purchases from "./pages/Purchases";
 import NotFound from "./pages/NotFound";
 import { AuthContext } from "./context/AuthContext";
+import Index from "./pages/Index";
 
 function App() {
 
@@ -16,12 +17,7 @@ function App() {
     return (
         <Router >
             <Routes>
-                < Route path='/' element={
-                    <div className="p-10 text-2xl">
-                        This Home Page  <br />
-                        <Link to='/login' className="text-blue-500 underline">Go to Login</Link>
-                    </div>}
-                />
+                < Route path='/' element={<Index />}/>
 
                 <Route
                     path="/home"
@@ -30,8 +26,8 @@ function App() {
                             <Home />
                         </ProtectedRoute >
                     }
-
                 />
+
                 <Route
                     path="/login"
                     element={!user ? <Login /> : <Navigate to="/home" />}
@@ -41,6 +37,7 @@ function App() {
                     path="/signup"
                     element={!user ? <Signup /> : <Navigate to="/home" />}
                 />
+                
                 <Route
                     path="/courses"
                     element={
