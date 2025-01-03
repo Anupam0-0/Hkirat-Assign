@@ -22,7 +22,7 @@ const App = () => {
             // Assuming the token is returned as 'token'
             const { token, user } = response.data;
             login(token, user);
-            
+
             alert('done');
             setEmail('')
             setPassword('')
@@ -36,13 +36,15 @@ const App = () => {
 
 
     return (
-        <div className='h-screen flex flex-col justify-center items-center gap-5'>
-            <h1 className='text-4xl'>Login</h1>
-            <form onSubmit={handleSubmit} className='flex flex-col gap-8 p-10 border shadow rounded '>
+        <div className='h-screen flex bg-slate-100 flex-col justify-center items-center'>
+
+            <form onSubmit={handleSubmit} className='flex w-96 flex-col gap-4 p-10 border shadow-lg rounded-xl bg-white'>
+                <h1 className='text-4xl text-center pb-8'>Login</h1>
+                
                 <input
                     type="email"
                     value={email}
-                    className='p-2 outline-none'
+                    className= 'my-2 py-2 px-4 text-lg rounded border shadow-sm outline-none'
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
                     required
@@ -50,13 +52,16 @@ const App = () => {
                 <input
                     type="password"
                     value={password}
-                    className='p-2 outline-none'
+                    className='my-2 py-2 px-4 rounded text-lg border shadow-sm outline-none'
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     required
                 />
-                <button type="submit" className='p-2 bg-blue-400 rounded text-white'>Login</button>
-                <div>New ? <Link to='/signup'>Signup</Link></div>
+                <button 
+                    type="submit" 
+                    className='my-2 p-2 bg-blue-400 rounded-lg text-xl text-white active:bg-blue-600 active:scale-[0.99] hover:bg-blue-500'
+                > Login </button>
+                <div className='text-lg px-1'>New ? <Link className=' text-blue-600 underline' to='/signup'>Signup</Link></div>
             </form>
 
             <p>{message}</p>

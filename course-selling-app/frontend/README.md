@@ -1,7 +1,7 @@
 # React + Vite
 
 # Structure
-
+```
 src/
 ├── api/
 │   └── axiosInstance.js         # Axios instance for API calls
@@ -25,3 +25,4 @@ src/
 ├── App.js                       # Main app entry point
 ├── index.js                     # ReactDOM render
 └── styles/                      # CSS or styling files
+```

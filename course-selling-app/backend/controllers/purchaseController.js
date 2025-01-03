@@ -7,7 +7,7 @@ const { message } = require('prompt');
 const buyCourse = async (req, res) => {
     try {
 
-        const userId = req.user.id;
+        const userId = req.body.userId;
         const courseId = req.body.courseId;
 
         const course = await Course.findById(courseId);
@@ -16,6 +16,7 @@ const buyCourse = async (req, res) => {
         }
 
         const user = await User.findById(userId);
+        
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
@@ -55,6 +56,8 @@ const getCourse = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+
 
 
 
